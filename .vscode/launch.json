@@ -22,6 +22,7 @@
                     "ignoreFailures": true
                 }
             ],
+            "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": "Build",
             "miDebuggerPath": "/usr/bin/lldb-mi"
         }
