@@ -1,0 +1,65 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Prepare for Release",
+            "type": "shell",
+            "command": "/usr/bin/bash",
+            "args": [
+                "-c",
+                "export CC=clang && export CXX=clang++ && rm -rf ..?* .[!.]* * && cmake -GNinja -DCMAKE_BUILD_TYPE=Release .."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Prepare for Debug",
+            "type": "shell",
+            "command": "/usr/bin/bash",
+            "args": [
+                "-c",
+                "export CC=clang && export CXX=clang++ && rm -rf ..?* .[!.]* * && cmake -GNinja -DCMAKE_BUILD_TYPE=Debug .."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "/usr/bin/ninja",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "./cde",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Test",
+            "type": "shell",
+            "command": "./test",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "rm -rf ..?* .[!.]* *",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        }
+    ]
+}
