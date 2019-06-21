@@ -4,34 +4,17 @@
         {
             "label": "Prepare for Release",
             "type": "shell",
-            "command": "/usr/bin/bash",
-            "args": [
-                "-c",
-                "export CC=clang && export CXX=clang++ && rm -rf ..?* .[!.]* * && cmake -GNinja -DCMAKE_BUILD_TYPE=Release .."
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            }
+            "command": "${workspaceFolder}/tasks/prepare_release.sh"
         },
         {
             "label": "Prepare for Debug",
             "type": "shell",
-            "command": "/usr/bin/bash",
-            "args": [
-                "-c",
-                "export CC=clang && export CXX=clang++ && rm -rf ..?* .[!.]* * && cmake -GNinja -DCMAKE_BUILD_TYPE=Debug .."
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            }
+            "command": "${workspaceFolder}/tasks/prepare_debug.sh"
         },
         {
             "label": "Build",
             "type": "shell",
-            "command": "/usr/bin/ninja",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            },
+            "command": "${workspaceFolder}/tasks/build.sh",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -56,10 +39,7 @@
         {
             "label": "Clean",
             "type": "shell",
-            "command": "rm -rf ..?* .[!.]* *",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            }
+            "command": "${workspaceFolder}/tasks/clean.sh",
         }
     ]
 }

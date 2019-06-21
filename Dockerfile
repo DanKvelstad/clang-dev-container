@@ -1,10 +1,11 @@
-FROM ubuntu:rolling
-RUN apt-get update
-RUN apt-get install -y clang-8 lldb git cmake ninja-build\
- && ln -s /usr/bin/clang++-8 /usr/bin/clang++\
- && ln -s /usr/bin/clang-8 /usr/bin/clang
-RUN cd /opt\
- && git clone https://github.com/google/googletest.git\
- && cd /opt/googletest\
- && cmake .\
- && make install
+FROM dankvelstad/cdc AS development
+RUN /workspaces/cde/tasks/prepare_release.sh
+RUN /workspaces/cde/tasks/build.sh
+
+FROM ubuntu:rolling AS testing
+COPY --from=development /workspaces/cde /workspaces/cde
+RUN /workspaces/cde/tasks/test.sh
+
+FROM ubuntu:rolling AS production
+COPY --from=development /workspaces/cde/build/cde /usr/bin/cde
+ENTRYPOINT [ "cde" ]
