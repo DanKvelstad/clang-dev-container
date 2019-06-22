@@ -1,6 +1,6 @@
 {
-	"name": "vscode",
-	"dockerFile": "Dockerfile_Environment",
+	"name": "clang-dev-container",
+	"image": "dankvelstad/clang-dev-container:latest",
 	"extensions": [
 		"ms-vscode.cpptools", 
 		"twxs.cmake",

@@ -1,11 +1,12 @@
-FROM dankvelstad/cdc AS development
-RUN /workspaces/cde/tasks/prepare_release.sh
-RUN /workspaces/cde/tasks/build.sh
+FROM dankvelstad/clang-dev-container:latest AS development
+COPY ./* /workspaces/cdc
+RUN /workspaces/cdc/tasks/prepare_release.sh
+RUN /workspaces/cdc/tasks/build.sh
 
-FROM ubuntu:rolling AS testing
-COPY --from=development /workspaces/cde /workspaces/cde
-RUN /workspaces/cde/tasks/test.sh
+FROM dankvelstad/clang-dev-container:latest AS testing
+COPY --from=development /workspaces/cdc /workspaces/cdc
+RUN /workspaces/cdc/tasks/test.sh
 
 FROM ubuntu:rolling AS production
-COPY --from=development /workspaces/cde/build/cde /usr/bin/cde
-ENTRYPOINT [ "cde" ]
+COPY --from=development /workspaces/cdc/build/cdc /usr/bin/cdc
+ENTRYPOINT [ "cdc" ]
